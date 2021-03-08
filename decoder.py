@@ -1,7 +1,9 @@
-class NotFoundEncodingError(Exception):
-    pass
-
 def decode(contents):
+    """
+    decode gets any bytes and try transform it to all standart encode. All variants this function returns as list of strings
+    
+    list standart encoding https://docs.python.org/3/library/codecs.html#standard-encodings
+    """
     encodings = [
         "ascii","big5","big5hkscs","cp037","cp273","cp424","cp437","cp500","cp720","cp737","cp775","cp850","cp852",
         "cp855","cp856","cp857","cp858","cp860","cp861","cp862","cp863","cp864","cp865","cp866","cp869","cp874","cp875",
@@ -14,9 +16,11 @@ def decode(contents):
         "shift_jis","shift_jis_2004","shift_jisx0213","utf_32","utf_32_be","utf_32_le","utf_16","utf_16_be",
         "utf_16_le","utf_7","utf_8","utf_8_sig",
     ]
+    succeed = []
     for e in encodings:
         try:
-            return io.StringIO(contents.decode(e))
+            contents.decode(e)
+            succeed.append(e)
         except:
             pass
-    raise NotFoundEncodingError()
+    return succeed
